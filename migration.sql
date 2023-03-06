@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS character;
 
-
 CREATE TABLE  character (
     id SERIAL PRIMARY KEY,
     name TEXT,
@@ -8,5 +7,5 @@ CREATE TABLE  character (
     job VARCHAR(50),
     hp INTEGER,
     background TEXT,
-    npc_type TEXT
+    npc_type VARCHAR(25)
 );

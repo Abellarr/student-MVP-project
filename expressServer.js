@@ -13,11 +13,11 @@ app.use(cors());
 const pool = require('./connectDB.js');
 
 
-// GET request: Returns info to client for all characters regardless of type
+// GET request: Returns info to client for all characters
 app.get('/api/chars', (req,res, next)=>{
     console.log(req.method);
     console.log('Request for all chars')
-    pool.query('SELECT * FROM characer;', (err, result)=>{
+    pool.query('SELECT * FROM character;', (err, result)=>{
         if (err){
             return next(err);
         }
@@ -26,42 +26,18 @@ app.get('/api/chars', (req,res, next)=>{
     })
 })
 
-// GET request: Returns info to client for all characters with a specific type (/npctype/:id/)
-// app.get('/api/chars/:id', (req,res, next)=>{
-//     console.log(req.method);
-//     const typeId = parseInt(req.params.id);
-//     // Checks to see if the (/:id) is a valid number
-//     if (Number.isNaN(typeId)){
-//         console.log('Error Invalid Path Name')
-//         return res.status(404).send('Error Invalid Path Name')
-//     } else {
-//         console.log(`Request for chars with type_id: ${typeId}`)
-//         pool.query('SELECT * FROM npc_char WHERE type_id = $1;', [typeId], (err, result)=>{
-//             if (err){
-//                 return next(err);
-//             }
-//             let chars = result.rows;
-//             // Checks if any chars are returned before responding
-//             if (chars[0]) {
-//                 res.status(200).send(chars);
-//             } else {
-//                 res.status(404).send('Error: Type not found')
-//             }
-//         })
-//     }
-// })
 
 // GET request: Returns info to client for a specific character (/chars/:id/)
 app.get('/api/chars/:id/', (req,res, next)=>{
     console.log(req.method);
-    const charId = req.params.id;
-    // Checks to see if (/:id) and (/:charid) are valid numbers
-    // if (Number.isNaN(charId)){
-    //     console.log('Error Invalid Path Name')
-    //     return res.status(404).send('Error Invalid Path Name')
-    // } else {
-        console.log(`Request for chars with name: ${charId}`)
-        pool.query('SELECT * FROM character WHERE name = $1;', [charId], (err, result)=>{
+    const charId = parseInt(req.params.id);
+    // Checks to see if (/:id) is a valid number
+    if (Number.isNaN(charId)){
+        console.log('Error Invalid Path Name')
+        return res.status(404).send('Error Invalid Path Name')
+    } else {
+        console.log(`Request for char with id: ${charId}`)
+        pool.query('SELECT * FROM character WHERE id = $1;', [charId], (err, result)=>{
             if (err){
                 return next(err);
             }
@@ -73,7 +49,7 @@ app.get('/api/chars/:id/', (req,res, next)=>{
                 res.status(404).send('Error Not found')
             }
         })
-    // }
+    }
 })
 
 // POST request: Takes in request body and creates an entry into npc_char table with associated key from npc_type table (/:id/)
@@ -86,13 +62,13 @@ app.post('/api/chars', (req, res, next)=>{
         console.log('Error: Input incorrect or missing information');
         return res.status(400).send('Error: Input missing or corrected information');
     } else {
-        pool.query('INSERT INTO npc_char (name, race, job, hp, background, npc_type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
+        pool.query('INSERT INTO character (name, race, job, hp, background, npc_type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
         [name, race, job, hp, background, npcType], (err, result)=>{
             if (err){
                 return next(err);
             }
             let charInfo = result.rows[0];
-            console.log('Added: ' + charName);
+            console.log('Added: ' + name);
             res.status(200).send(charInfo);
         })
     } 
@@ -107,22 +83,21 @@ app.patch('/api/chars/:id/', (req,res, next)=>{
         console.log('Error Invalid Path Name')
         return res.status(404).send('Error Invalid Path Name')
     }
-    const { name, race, job, hitPoints, background, npcType } = req.body;
+    const { name, race, job, hp, background, npcType } = req.body;
     // Checks if the character exists in the table
     pool.query('SELECT * FROM character WHERE id = $1;', [charId], (err, result)=>{
         let info = result.rows[0];
+
         if (err){
             next(err);
         }
-        // If the information exists in the request body, will update the database at that location
-
-        // Checks if hit points and type_id are valid numbers
-        if (hitPoints !== undefined && Number.isNaN(parseInt(hitPoints))){
+        // Checks if hit points is a valid number
+        if (hp !== undefined && Number.isNaN(parseInt(hp))){
             console.log('Error Invalid Input1');
             return res.status(400).send('Error Invalid Input');
         } else if (info){
             // Returns notification if character is successfully updated
-            let hp = parseInt(hitPoints);
+            // let hp = parseInt(hitPoints);
             if (name){
                 pool.query('UPDATE character SET name = $1 WHERE id = $2;', [name, charId], (err, result)=>{
                     console.log(`Character name updated: ${charName}`);
