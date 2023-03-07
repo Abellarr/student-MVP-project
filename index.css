@@ -1,5 +1,7 @@
 #bodyBg {
-    opacity: 1.0;
+    background-image: url('https://i.imgur.com/QrLSPUv.jpeg');
+    background-position: center center;
+    background-size: cover;
 }
 #mainBody {
     display: flex;

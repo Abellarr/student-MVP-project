@@ -55,8 +55,10 @@ app.get('/api/chars/:id/', (req,res, next)=>{
 // POST request: Takes in request body and creates an entry into npc_char table with associated key from npc_type table (/:id/)
 app.post('/api/chars', (req, res, next)=>{
     console.log(req.method);
+    // const jsonObj = JSON.parse(req.body);
     const { name, race, job, background, npcType } = req.body;
     const hp = parseInt(req.body.hp)
+    console.log(req.body);
     // checks for missing information in request and if the hitPoints block is a number
     if (!name || !race || !job || !hp || !background || !npcType || Number.isNaN(hp)) {
         console.log('Error: Input incorrect or missing information');
@@ -165,7 +167,8 @@ app.delete('/api/chars/:id/', (req,res, next)=>{
 
 // Generic error handling for any internal next() errors encountered.
 app.use((err,req,res,next)=>{
-    console.log('Error sent to middleware')
+    console.log('Error sent to middleware');
+    console.log(err);
     res.status(500).send('Internal Error');
 })
 
