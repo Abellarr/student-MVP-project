@@ -30,14 +30,14 @@ app.get('/api/chars', (req,res, next)=>{
 // GET request: Returns info to client for a specific character (/chars/:id/)
 app.get('/api/chars/:id/', (req,res, next)=>{
     console.log(req.method);
-    const charId = parseInt(req.params.id);
+    const charId = req.params.id;
     // Checks to see if (/:id) is a valid number
-    if (Number.isNaN(charId)){
-        console.log('Error Invalid Path Name')
-        return res.status(404).send('Error Invalid Path Name')
-    } else {
-        console.log(`Request for char with id: ${charId}`)
-        pool.query('SELECT * FROM character WHERE id = $1;', [charId], (err, result)=>{
+    // if (Number.isNaN(charId)){
+    //     console.log('Error Invalid Path Name')
+    //     return res.status(404).send('Error Invalid Path Name')
+    // } else {
+        console.log(`Request for char with name: ${charId}`)
+        pool.query('SELECT * FROM character WHERE name = $1;', [charId], (err, result)=>{
             if (err){
                 return next(err);
             }
@@ -49,7 +49,7 @@ app.get('/api/chars/:id/', (req,res, next)=>{
                 res.status(404).send('Error Not found')
             }
         })
-    }
+    // }
 })
 
 // POST request: Takes in request body and creates an entry into npc_char table with associated key from npc_type table (/:id/)

@@ -8,8 +8,32 @@
     <link rel="stylesheet" href="index.css">
     <title>DnD NPC Character page</title>
 </head>
-<body>
-    
+<body id="bodyBg" style="background-image: url('https://i.imgur.com/QrLSPUv.jpeg');">
+    <div id="header">
+        <h1 id="head"></h1>
+    </div>
+    <div id="mainBody">
+        <div id="search">
+            <div class="example">
+                <button id="allButton" type="submit">See all Characters</button>
+                <input id="searchField" type="text" placeholder="Search by name..">
+                <button id="searchButton" type="submit">Search</button>
+            </div>
+        <div id="create">
+            <input id="createName" class="createBox" type="text" placeholder="Enter name..">
+            <input id="createRace" class="createBox" type="text" placeholder="Enter race..">
+            <input id="createClass" class="createBox" type="text" placeholder="Enter Class/Job..">
+            <input id="createHp" class="createBox" type="text" placeholder="Enter Hit Points (number)..">
+            <input id="createBg" class="createBox" type="text" placeholder="Enter Background..">
+            <input id="createType" class="createBox" type="text" placeholder="Enter NPC type..">
+            <button id="createButton" type="submit">Create</button>           
+        </div>
+        </div>
+        <div id="container" class="scroll"></div>
+    </div>
+    <div id="footer">
+        <p id="foot"></p>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
