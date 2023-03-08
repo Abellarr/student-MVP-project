@@ -31,31 +31,24 @@ app.get('/api/chars', (req,res, next)=>{
 app.get('/api/chars/:id/', (req,res, next)=>{
     console.log(req.method);
     const charId = req.params.id;
-    // Checks to see if (/:id) is a valid number
-    // if (Number.isNaN(charId)){
-    //     console.log('Error Invalid Path Name')
-    //     return res.status(404).send('Error Invalid Path Name')
-    // } else {
-        console.log(`Request for char with name: ${charId}`)
-        pool.query('SELECT * FROM character WHERE name = $1;', [charId], (err, result)=>{
-            if (err){
-                return next(err);
-            }
-            let char = result.rows;
-            // Checks if any chars are returned before responding
-            if (char[0]) {
-                res.status(200).send(char);
-            } else {
-                res.status(404).send('Error Not found')
-            }
-        })
-    // }
+    console.log(`Request for char with name: ${charId}`)
+    pool.query('SELECT * FROM character WHERE name = $1;', [charId], (err, result)=>{
+        if (err){
+            return next(err);
+        }
+        let char = result.rows;
+        // Checks if any chars are returned before responding
+        if (char[0]) {
+            res.status(200).send(char);
+        } else {
+            res.status(404).send('Error Not found')
+         }
+    })
 })
 
 // POST request: Takes in request body and creates an entry into npc_char table with associated key from npc_type table (/:id/)
 app.post('/api/chars', (req, res, next)=>{
     console.log(req.method);
-    // const jsonObj = JSON.parse(req.body);
     const { name, race, job, background, npcType } = req.body;
     const hp = parseInt(req.body.hp)
     console.log(req.body);
