@@ -5,6 +5,7 @@ $('#headSub').text('An updateable resource for DM\'s to help manage NPCs')
 $('#foot').html(`This website is not affiliated with Wizards of the Coast or the Dungeons and Dragons franchise.<br>This content does not fall under WotC's OGL and is not sourced from the Systems Reference Document.`);
 
 function getAllChars(){
+    $('#container').empty();
     $.get('http://localhost:3000/api/chars', (data)=>{
         console.log(data);
         for (let i=0;i<data.length;i++){

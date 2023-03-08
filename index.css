@@ -10,6 +10,21 @@
 #search {
     width: 40%;
 }
+#searchBox{
+    background-color: cornflowerblue;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+#searchText{
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 #searchField {
     margin-left: 10px;
 }
@@ -21,17 +36,28 @@
     margin-left: 30px;
 }
 #create {
-    margin-top: 40px;
-    margin-left: 30px;
-    width: 30%;
+    margin-top: 30px;
+    margin-left: 20px;
+    width: 80%;
+    background-color: cornflowerblue;
+    border-style: solid;
+    border-radius: 15px;
+    justify-content: center;
+    padding: 10px;
 }
 .createBox {
     margin-bottom: 3px;
 }
 #createButton {
     margin-top: 5px;
+    margin-bottom: 20px;
 }
-.scroll {
+#createText {
+    width: 100%;
+    padding-left: 15px;
+
+}
+#container {
     overflow-x: hidden;
     overflow-y: auto;
     text-align: center;
@@ -39,9 +65,9 @@
     width: 50%;
     height: 800px;
     border-style: solid;
-    border: 4px;
     border-color: black;
-    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     background-color: dimgray;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -55,8 +81,9 @@
     border-style: solid;
     border-color: black;
     border-radius: 20px;
-    background-color: antiquewhite;
+    background-color: darkcyan;
     text-align: center;
+    box-shadow: 18px 21px 19px -13px rgba(0,0,0,0.42);
 }
 #head {
     margin-top: 10px;
