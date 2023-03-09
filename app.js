@@ -31,6 +31,12 @@ function getAllChars(){
             $(`#header${i}`).css("color", "Ivory");
             $(`#header${i}`).css("margin-bottom", "2px");
             $(`#extraText${i}`).css("margin-top", "5px");
+            $(`#header${i}`).on('click', ()=>{
+                searchTerm = $(`#header${i}`).text();
+                console.log('Search for:' + searchTerm);
+                getCharById(searchTerm);
+            })
+            $(`#header${i}`).css("cursor", "pointer");
         }
     })
 }
