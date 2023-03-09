@@ -1,3 +1,4 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # student-MVP-project
 
 First, a little bit about me. I am a lover of almost all things Dungeons and Dragons. I've been a player, a DM, and a guide for new players many times throughout the years. I first started playing on 2nd edition in high school and have continued with every edition through 5th. I have enormous passion for the game and would love to one day weave that passion with my growing programming skills to deliver an outstanding product to the DnD community.
@@ -17,3 +18,7 @@ Once I established how I wanted to map my database, I set up my postgreSQL serve
 The express.js file contains the server portion of the stack and works with the package.json to make sure all of my node modules are there. The server is a RESTful server and should handle any basic CRUD requests for the Characters. These have been tested and operational in Postman, but not all CRUD functions work with the client-side portion.
 
 The app.js, index.html, and index.css are the client-side files that handle the webpage. As of now, the website has functionality in generating all entries in the database, searching for specific NPCs by name, and adding new NPC entries to the database. In the future, I plan to add full functionality and styling to make the webpage more user-friendly and interactive.
+
+## License
+
+The license used for this project is MIT
