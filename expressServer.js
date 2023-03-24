@@ -1,6 +1,3 @@
-// const dotenv = require('dotenv');
-// dotenv.config();
-// console.log(process.env);
 const express = require('express');
 const app = express();
 const fs = require('fs');
@@ -55,7 +52,7 @@ app.post('/api/chars', (req, res, next)=>{
     // checks for missing information in request and if the hitPoints block is a number
     if (!name || !race || !job || !hp || !background || !npcType || Number.isNaN(hp)) {
         console.log('Error: Input incorrect or missing information');
-        return res.status(400).send('Error: Input missing or corrected information');
+        return res.status(400).send('Error: Input incorrect or missing information');
     } else {
         pool.query('INSERT INTO character (name, race, job, hp, background, npc_type) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
         [name, race, job, hp, background, npcType], (err, result)=>{
@@ -73,7 +70,7 @@ app.post('/api/chars', (req, res, next)=>{
 app.patch('/api/chars/:id/', (req,res, next)=>{
     console.log(req.method);
     const charId = parseInt(req.params.id);
-    // Checks to see if (/:id) and (/:charid) are valid numbers
+    // Checks to see if (/:id) is a valid number
     if (Number.isNaN(charId)){
         console.log('Error Invalid Path Name')
         return res.status(404).send('Error Invalid Path Name')
@@ -92,7 +89,6 @@ app.patch('/api/chars/:id/', (req,res, next)=>{
             return res.status(400).send('Error Invalid Input');
         } else if (info){
             // Returns notification if character is successfully updated
-            // let hp = parseInt(hitPoints);
             if (name){
                 pool.query('UPDATE character SET name = $1 WHERE id = $2;', [name, charId], (err, result)=>{
                     console.log(`Character name updated: ${charName}`);
@@ -165,7 +161,7 @@ app.use((err,req,res,next)=>{
     res.status(500).send('Internal Error');
 })
 
-// Sets my server to listen to the port variable, which is currently 3000
+// Sets my server to listen to the port variable, which is 3000 by default
 app.listen(port, ()=>{
     console.log(`Server is listening on ${port}`);
 })
